@@ -1,7 +1,11 @@
 package com.project.ecommerce.security;
 
+import com.project.ecommerce.security.handler.CustomAccessDeniedHandler;
+import com.project.ecommerce.security.handler.CustomAuthenticationEntryPoint;
+import com.project.ecommerce.security.jwt.JwtAuthenticationFilter;
 import com.project.ecommerce.security.jwt.JwtTokenUtil;
 import com.project.ecommerce.service.UMS.impl.MemberServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,20 +22,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MemberServiceImpl memberService;
     private final JwtTokenUtil jwtTokenUtil;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
     private final CustomAccessDeniedHandler accessDeniedHandler;
-
-    @Autowired
-    public SecurityConfig(MemberServiceImpl memberService, JwtTokenUtil jwtTokenUtil, CustomAuthenticationEntryPoint authenticationEntryPoint, CustomAccessDeniedHandler accessDeniedHandler) {
-        this.memberService = memberService;
-        this.jwtTokenUtil = jwtTokenUtil;
-        this.authenticationEntryPoint = authenticationEntryPoint;
-        this.accessDeniedHandler = accessDeniedHandler;
-    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{

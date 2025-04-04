@@ -2,12 +2,12 @@ package com.project.ecommerce.service.UMS.impl;
 
 import com.project.ecommerce.dto.UMS.MemberDetail;
 import com.project.ecommerce.mbg.mapper.AddressMapper;
+import com.project.ecommerce.mbg.mapper.MemberChangeLogMapper;
 import com.project.ecommerce.mbg.mapper.MemberMapper;
-import com.project.ecommerce.mbg.model.Address;
-import com.project.ecommerce.mbg.model.AddressExample;
-import com.project.ecommerce.mbg.model.Member;
-import com.project.ecommerce.mbg.model.MemberExample;
+import com.project.ecommerce.mbg.model.*;
+import com.project.ecommerce.security.CustomUserDetail;
 import com.project.ecommerce.service.UMS.MemberService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberMapper memberMapper;
@@ -30,13 +31,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final AddressMapper addressMapper;
 
     private final MemberChangeLogMapper logMapper;
-
-    @Autowired
-    public MemberServiceImpl(MemberMapper memberMapper, AddressMapper addressMapper, MemberChangeLogMapper logMapper) {
-        this.memberMapper = memberMapper;
-        this.addressMapper = addressMapper;
-        this.logMapper = logMapper;
-    }
 
     @Override
     public String generateAuthCode(String telephone) {
